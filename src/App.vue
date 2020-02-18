@@ -1,17 +1,26 @@
 <template>
     <v-app :style="{background: $vuetify.theme.themes[theme].background}">
-        <TopBar/>
-        <NavBar/>
+        <v-layout
+                align-center
+                justify-center
+        >
+            <v-flex
+                    xs12
+                    sm8
+                    md4
+            >
+                <GameCarrousel/>
+            </v-flex>
+        </v-layout>
     </v-app>
 </template>
 
 <script>
+    import GameCarrousel from "./components/landing/GameCarousel";
 
-    import TopBar from "@/components/navbar/TopBar";
-    import NavBar from "@/components/navbar/NavBar";
     export default {
         name: "App",
-        components: {NavBar, TopBar},
+        components: {GameCarrousel},
         data() {
             return {
 

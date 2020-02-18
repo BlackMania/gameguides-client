@@ -22,7 +22,7 @@
                 </v-card>
             </v-menu>
             <div>
-                test
+                {{ this.$store.getters.selectedGame }}
             </div>
         </v-toolbar>
     </v-card>
