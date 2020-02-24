@@ -1,6 +1,7 @@
 const generalStore = {
     state: {
-        selectedGame: ""
+        selectedGame: "",
+        suportedGames: [ {name: "League of Legends", shorthand: "lol"}, {name: "Sword Art Online: Rising Steel", shorthand: "saors"}]
     },
     mutations: {
         changeSelectedGame(state, newGame) {
@@ -13,7 +14,8 @@ const generalStore = {
 
     },
     getters: {
-        selectedGame: state => state.selectedGame
+        selectedGame: state => state.selectedGame,
+        supportedGames: state => state.suportedGames
     }
 }
 
