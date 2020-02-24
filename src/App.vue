@@ -1,37 +1,34 @@
 <template>
-    <v-app :style="{background: $vuetify.theme.themes[theme].background}">
-        <v-layout
-                align-center
-                justify-center
-        >
-            <v-flex
-                    xs12
-                    sm8
-                    md4
-            >
-                <GameCarrousel/>
-            </v-flex>
-        </v-layout>
+    <v-app>
+        <div class="custom-container" :style="{ backgroundImage: `url('${image}')` }">
+            <RouterView/>
+        </div>
     </v-app>
 </template>
 
 <script>
-    import GameCarrousel from "./components/landing/GameCarousel";
 
     export default {
         name: "App",
-        components: {GameCarrousel},
+        components: {},
         data() {
             return {
 
             }
         },
         computed:{
-            theme(){
-                return (this.$vuetify.theme.dark) ? 'dark' : 'light'
-            }
+            image() {
+                return require("@/assets/images/background.png");
+            },
         }
     };
 </script>
 <style scoped>
+    .custom-container {
+        width: 100%;
+        height: 100vh;
+        position: relative;
+        background-repeat: repeat;
+        background-color: #ebebeb;
+    }
 </style>
