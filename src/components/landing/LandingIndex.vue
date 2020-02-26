@@ -17,15 +17,29 @@
                 </div>
             </v-flex>
         </v-layout>
+        <div class="d-flex flex-wrap-reverse info-row">
+            <InfoColumn v-for="(item, index) in info"
+                        :key="index"
+                        :icon="item.icon"
+                        :text="item.text"/>
+        </div>
     </div>
 </template>
 
 <script>
     import GameCarousel from "@/components/landing/GameCarousel";
+    import InfoColumn from "./InfoColumn";
 
     export default {
         name: "LandingIndex",
-        components: {GameCarousel},
+        components: {InfoColumn, GameCarousel},
+        data() {
+            return {
+                info: [{ icon: "mdi-television-guide", text: "Watch and create guides for your specific game!"},
+                    { icon: "mdi-help", text: "Watch and keep track of your progress of quests for your specific game!" },
+                    { icon: "mdi-forum", text: "Have conversations about specific game parts on our forums!" }]
+            }
+        },
         computed: {
 
             headerImage() {
@@ -44,13 +58,21 @@
     .header-image {
         width: 100%;
         height: 60%;
-        min-height: 660px;
+        min-height: 800px;
         background-size: cover;
-        position: absolute;
     }
 
     .carr {
         margin-left: 5%;
         margin-right: 5%;
+    }
+
+    .info-row {
+        width: 60%;
+        margin: auto;
+        align-items: center;
+        text-align: center;
+        padding: 2%;
+        justify-content: space-around;
     }
 </style>

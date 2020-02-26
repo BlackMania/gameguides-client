@@ -1,5 +1,6 @@
 <template>
     <v-carousel-item class="carousel-item">
+        <router-link :to="{name: this.shorthand}">
             <v-sheet
                     :style="{backgroundImage: `url('${getImg}')`}"
                     style="background-size: cover;"
@@ -13,6 +14,7 @@
                     <div class="mr-3 ml-3 display-1 carousel-text">{{ gameName }}</div>
                 </v-row>
             </v-sheet>
+        </router-link>
     </v-carousel-item>
 </template>
 
