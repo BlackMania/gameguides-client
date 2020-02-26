@@ -1,7 +1,7 @@
 const generalStore = {
     state: {
         selectedGame: "",
-        suportedGames: [ {name: "League of Legends", shorthand: "lol"}, {name: "Sword Art Online: Rising Steel", shorthand: "saors"}]
+        suportedGames: [ {name: "League of Legends", shorthand: "lol"}]
     },
     mutations: {
         changeSelectedGame(state, newGame) {
