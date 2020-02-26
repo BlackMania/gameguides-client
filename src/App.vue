@@ -26,7 +26,8 @@
 <style scoped>
     .custom-container {
         width: 100%;
-        height: 100vh;
+        height: auto;
+        min-height: 100vh;
         position: relative;
         background-repeat: repeat;
         background-color: #ebebeb;
