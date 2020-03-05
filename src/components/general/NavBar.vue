@@ -34,7 +34,7 @@
                         </v-btn>
                     </template>
 
-                    <v-card tile class="pa-4" color="primary" :style="{color: $vuetify.theme.themes[theme].text}">
+                    <v-card tile class="pa-4" color="primary" :style="{color: $vuetify.theme.themes[this.$root.theme].text}">
                         <v-card-title  class="justify-center">
                             Sign In
                         </v-card-title>
@@ -65,11 +65,6 @@
                     {title: 'Builds & Guides', path: '/guides'},
                     {title: 'Create Guide', path: '/signup'},
                 ],
-            }
-        },
-        computed: {
-            theme() {
-                return (this.$vuetify.theme.dark) ? 'dark' : 'light'
             }
         }
     }

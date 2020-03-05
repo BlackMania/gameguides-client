@@ -30,10 +30,7 @@
 
 <script>
     export default {
-        name: "TopBar",
-        created() {
-            window.console.log(this.$parent);
-        }
+        name: "TopBar"
     }
 </script>
 

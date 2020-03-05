@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import LandingIndex from "@/components/landing/LandingIndex";
-import NavBar from "../components/navbar/NavBar";
+import GameSelector from "@/js/GameSelector";
 
 Vue.use(VueRouter)
 
@@ -12,9 +12,10 @@ const routes = [
     component: LandingIndex,
   },
   {
-    path: '/lol',
-    name: 'lol',
-    component: NavBar
+    path: '/games/:game',
+    name: 'game',
+    component: GameSelector,
+    props: (route) => ({ game: route.params.game })
   }
 ]
 

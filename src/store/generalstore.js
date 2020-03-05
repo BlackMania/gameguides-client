@@ -1,21 +1,22 @@
 const generalStore = {
     state: {
-        selectedGame: "",
-        suportedGames: [ {name: "League of Legends", shorthand: "lol"}]
+        supportedGames: []
     },
     mutations: {
-        changeSelectedGame(state, newGame) {
-            state.selectedGame = newGame;
+        SET_SUPPORTED_GAMES(state, supportedGames) {
+            state.supportedGames = supportedGames;
         }
     },
     actions: {
+        setSupportedGames ({ commit }, games) {
+            commit('SET_SUPPORTED_GAMES', games);
+        }
     },
     modules: {
 
     },
     getters: {
-        selectedGame: state => state.selectedGame,
-        supportedGames: state => state.suportedGames
+        supportedGames: state => state.supportedGames
     }
 }
 

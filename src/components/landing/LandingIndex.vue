@@ -36,8 +36,8 @@
         data() {
             return {
                 info: [{ icon: "mdi-television-guide", text: "Watch and create guides for your specific game!"},
-                    { icon: "mdi-help", text: "Watch and keep track of your progress of quests for your specific game!" },
-                    { icon: "mdi-forum", text: "Have conversations about specific game parts on our forums!" }]
+                    { icon: "mdi-help", text: "Keep track of your progress of quests for your specific game!" },
+                    { icon: "mdi-forum", text: "Leave a review or a thumbs up for the content creator!" }]
             }
         },
         computed: {
@@ -45,6 +45,10 @@
             headerImage() {
                 return require("../../assets/images/headerimage.png");
             }
+        },
+        created() {
+
+            this.$store.dispatch('setSupportedGames', [ {name: "League of Legends", shorthand: "lol"}, {name: "Dota 2", shorthand: "dota2"} ])
         }
     }
 </script>
@@ -68,11 +72,10 @@
     }
 
     .info-row {
-        width: 60%;
+        width: 70%;
         margin: auto;
         align-items: center;
         text-align: center;
-        padding: 2%;
         justify-content: space-around;
     }
 </style>
