@@ -27,6 +27,7 @@
 </template>
 
 <script>
+    import APIService from "../../js/APIService"
     import GameCarousel from "@/components/landing/GameCarousel";
     import InfoColumn from "./InfoColumn";
 
@@ -47,8 +48,13 @@
             }
         },
         created() {
-
-            this.$store.dispatch('setSupportedGames', [ {name: "League of Legends", shorthand: "lol"}, {name: "Dota 2", shorthand: "dota2"} ])
+            APIService.get("/gg/supportedgames")
+                .then(response => {
+                    this.$store.dispatch('setSupportedGames', response.data);
+                })
+                .catch(error => {
+                    window.console.log(error);
+                })
         }
     }
 </script>

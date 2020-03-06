@@ -12,7 +12,7 @@ const routes = [
     component: LandingIndex,
   },
   {
-    path: '/games/:game',
+    path: '/:game',
     name: 'game',
     component: GameSelector,
     props: (route) => ({ game: route.params.game })
