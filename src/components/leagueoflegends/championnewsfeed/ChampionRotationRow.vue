@@ -1,6 +1,8 @@
 <template>
     <div class="white--text">
-        Weekly free champions
+        <div class="weekly-champ-rot-text">
+            Weekly free champions
+        </div>
         <div class="d-flex flex-shrink-0 justify-start" style="flex-flow: row wrap;">
             <FreeChampion class="flex-shrink-1"
                           v-for="champion in this.$store.getters.freeChampionRotation"
@@ -13,10 +15,10 @@
 
 <script>
     import APIService from "../../../js/APIService"
-    import FreeChampion from "./FreeChampion";
+    import FreeChampion from "./ChampionSquare";
 
     export default {
-        name: "FreeChampionRotation",
+        name: "ChampionRotationRow",
         components: {FreeChampion},
         data() {
             return {}
@@ -39,5 +41,11 @@
 </script>
 
 <style scoped>
-
+.weekly-champ-rot-text {
+    line-height: 11px;
+    font-size: 14px;
+    color: #bdbdbd;
+    font-family: "Candara";
+    text-shadow: 0 0 3px #000000, 0 0 5px #000000;
+}
 </style>
