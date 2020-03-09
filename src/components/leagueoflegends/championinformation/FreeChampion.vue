@@ -1,6 +1,6 @@
 <template>
     <div class="flex-fill white--text">
-        <VImg :src="'http://ddragon.leagueoflegends.com/cdn/10.4.1/img/champion/' + this.image"></VImg>
+        <VImg max-width="50px" :src="'http://localhost:3000/lol/img/champion/' + this.image"></VImg>
     </div>
 </template>
 
@@ -10,8 +10,7 @@
         props: {
             image: String,
             champion: String,
-        },
-
+        }
     }
 </script>
 

@@ -14,7 +14,7 @@ const vuetify = new Vuetify({
                 accent: '#8c9eff',
                 error: '#b51209',
                 background: '#1b262c',
-                text: '#FFFFFF'
+                text: '#535966'
             },
         },
     }

@@ -39,6 +39,7 @@ const lolStore = {
 
     },
     getters: {
+        championData: state => state.championData,
         freeChampionRotation: state => state.freeChampionRotation
     }
 }
