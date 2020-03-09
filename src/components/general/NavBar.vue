@@ -1,5 +1,6 @@
 <template>
     <v-card
+            width="100%"
             flat
             tile
     >

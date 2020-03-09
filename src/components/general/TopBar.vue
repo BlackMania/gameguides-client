@@ -1,5 +1,5 @@
 <template>
-    <v-card tile>
+    <v-card tile width="100%">
         <v-toolbar height="25px" color="primary">
             <v-menu open-on-hover bottom offset-y>
                 <template v-slot:activator="{ on }">
@@ -16,8 +16,10 @@
                 </template>
                 <v-card tile>
                     <v-list tile>
-                        <v-list-item>League of Legends</v-list-item>
-                        <v-list-item>League of Legends</v-list-item>
+                        <v-list-item v-for="game in this.$store.getters.supportedGames"
+                                     v-bind:key="game.name"
+                                     v-text="game.name"
+                                     />
                     </v-list>
                 </v-card>
             </v-menu>
@@ -29,8 +31,21 @@
 </template>
 
 <script>
+    import APIService from "../../js/APIService"
     export default {
-        name: "TopBar"
+        name: "TopBar",
+        created() {
+            if(this.$store.getters.supportedGames.length <= 0)
+            {
+                APIService.get("/gg/supportedgames")
+                    .then(response => {
+                        this.$store.dispatch('setSupportedGames', response.data);
+                    })
+                    .catch(error => {
+                        window.console.log(error);
+                    })
+            }
+        }
     }
 </script>
 
