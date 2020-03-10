@@ -1,10 +1,10 @@
 <template>
-    <div class="white--text">
+    <div class="white--text pa-1" >
         <div class="weekly-champ-rot-text">
             Weekly free champions
         </div>
-        <div class="d-flex flex-shrink-0 justify-start" style="flex-flow: row wrap;">
-            <FreeChampion class="flex-shrink-1"
+        <div class="d-flex flex-row" style="flex-flow: row wrap; align-content: start;">
+            <ChampionSquare
                           v-for="champion in this.$store.getters.freeChampionRotation"
                           :key="champion.key"
                           :champion="champion.name"
@@ -15,11 +15,11 @@
 
 <script>
     import APIService from "../../../js/APIService"
-    import FreeChampion from "./ChampionSquare";
+    import ChampionSquare from "./ChampionSquare";
 
     export default {
         name: "ChampionRotationRow",
-        components: {FreeChampion},
+        components: {ChampionSquare},
         data() {
             return {}
         },

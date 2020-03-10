@@ -1,11 +1,11 @@
 <template>
     <div
             v-if="getChampionData !== undefined"
-            class="white--text img-box"
+            class="white--text img-box d-flex"
     >
         <img
                 :src="'http://localhost:3000/lol/img/champion/splash/' + getChampionData.name + '_0.jpg'"
-                class="newest-champion"
+                class="newest-champion flex-fill"
         />
         <div class="champ-name">
             {{ getChampionData.name }}
@@ -44,9 +44,9 @@
 <style scoped>
 .newest-champion {
     object-fit: cover;
-    object-position: 1px 5px;
+    object-position: 0px 0px;
     width: 100%;
-    height: 150px;
+    height: 180px;
     user-drag: none;
     user-select: none;
     -moz-user-select: none;
@@ -62,7 +62,7 @@
 
     .champ-name {
         position: absolute;
-        top: 10px;
+        top: 40px;
         left: 50px;
         font-family: "Palatino Linotype";
         font-size: 60px;
@@ -72,7 +72,7 @@
     .champ-title {
         text-transform: uppercase;
         position: absolute;
-        top: 80px;
+        top: 110px;
         left: 50px;
         font-family: "Palatino Linotype";
         font-size: 30px;

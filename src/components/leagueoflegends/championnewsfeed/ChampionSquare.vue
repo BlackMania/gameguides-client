@@ -1,6 +1,6 @@
 <template>
-    <div class="flex-fill white--text">
-        <VImg class="square-champ" max-width="50px" :src="'http://localhost:3000/lol/img/champion/' + this.image"></VImg>
+    <div class="white--text" style="width: 6.666666666666667%">
+        <VImg class="square-champ"  width="100%" :src="'http://localhost:3000/lol/img/champion/' + this.image"></VImg>
     </div>
 </template>
 

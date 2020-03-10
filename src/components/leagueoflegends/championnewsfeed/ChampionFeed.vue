@@ -17,5 +17,7 @@
 </script>
 
 <style scoped>
-
+    .news-feed-lol {
+        height: 100%;
+    }
 </style>

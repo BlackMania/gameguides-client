@@ -68,7 +68,7 @@
     .header-image {
         width: 100%;
         height: 60%;
-        min-height: 800px;
+        min-height: 850px;
         background-size: cover;
     }
 

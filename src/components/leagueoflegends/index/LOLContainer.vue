@@ -4,7 +4,8 @@
         <NavBar/>
         <v-container class="index-container">
             <div  v-if="this.$route.name === 'game'">
-                <ChampionFeed/>
+                <TopSection/>
+                <MidSection/>
             </div>
             <div v-else-if="this.$route.name !== 'game'">
                 <router-view></router-view>
@@ -17,11 +18,12 @@
     import TopBar from "@/components/general/TopBar";
     import NavBar from "@/components/general/NavBar";
     import axios from 'axios'
-    import ChampionFeed from "../championnewsfeed/ChampionFeed";
+    import TopSection from "@/components/leagueoflegends/index/TopSection";
+    import MidSection from "@/components/leagueoflegends/index/MidSection";
 
     export default {
         name: "LOLContainer",
-        components: {ChampionFeed, NavBar, TopBar},
+        components: {MidSection, TopSection, NavBar, TopBar},
         methods: {
             getChampData: function () {
                 axios.get('http://ddragon.leagueoflegends.com/cdn/10.4.1/data/en_US/champion.json')
@@ -34,7 +36,6 @@
             }
         },
         created() {
-            window.console.log(this.$route)
             this.getChampData()
         }
     }
