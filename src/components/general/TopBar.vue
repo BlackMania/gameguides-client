@@ -15,16 +15,19 @@
                     </v-btn>
                 </template>
                 <v-card tile>
-                    <v-list tile>
-                        <v-list-item v-for="game in this.$store.getters.supportedGames"
-                                     v-bind:key="game.name"
-                                     v-text="game.name"
-                                     />
+                    <v-list tile class="pa-0">
+                        <v-list-item class="link" v-for="data in this.$store.getters.supportedGames"
+                                     v-bind:key="data.name"
+                        >
+                            <router-link class="link" :to="{name: 'game', params: { game: data.shorthand } }">
+                                {{ data.name }}
+                            </router-link>
+                        </v-list-item>
                     </v-list>
                 </v-card>
             </v-menu>
-            <div>
-                {{ this.$store.getters.selectedGame }}
+            <div class="grey--text">
+                {{ getSelectedGame }}
             </div>
         </v-toolbar>
     </v-card>
@@ -34,6 +37,16 @@
     import APIService from "../../js/APIService"
     export default {
         name: "TopBar",
+        computed: {
+            getSelectedGame() {
+                let selectedGame =  this.$store.getters.supportedGames.find(x => x.shorthand === this.$route.params.game);
+                if(selectedGame === undefined)
+                {
+                    return "";
+                }
+                else return selectedGame.name;
+            }
+        },
         created() {
             if(this.$store.getters.supportedGames.length <= 0)
             {
@@ -53,5 +66,13 @@
     .v-menu__content {
         border-radius: 0 !important;
         left: 0 !important;
+    }
+
+    .link {
+        text-decoration: none;
+        transition: 0.5s ease-in;
+    }
+    .link:hover {
+        background-color: lightgray;
     }
 </style>

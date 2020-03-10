@@ -2,15 +2,16 @@
     <div>
         <TopBar/>
         <NavBar/>
-        <v-container class="index-container">
-            <div  v-if="this.$route.name === 'game'">
-                <TopSection/>
-                <MidSection/>
-            </div>
-            <div v-else-if="this.$route.name !== 'game'">
-                <router-view></router-view>
-            </div>
-        </v-container>
+            <v-container class="index-container">
+                <div v-if="this.$route.name === 'game'">
+                    <TopSection/>
+                    <MidSection/>
+                </div>
+
+                <div v-else-if="this.$route.name !== 'game'">
+                    <router-view></router-view>
+                </div>
+            </v-container>
     </div>
 </template>
 
@@ -46,15 +47,5 @@
         margin-left: 20%;
         margin-right: 20%;
         width: 60%;
-    }
-
-    .news-feed-lol {
-        max-width: 60%;
-        padding: 3px;
-        user-select: none;
-        -moz-user-select: none;
-        -khtml-user-select: none;
-        -webkit-user-select: none;
-        -o-user-select: none;
     }
 </style>

@@ -9,7 +9,7 @@
                 tile
                 color="secondary"
         >
-            <v-toolbar-title class="white--text">{{ appTitle }}</v-toolbar-title>
+            <router-link class="app-title" :to="{name: 'game', params: { game: this.$route.params.game }}"><v-toolbar-title class="white--text">{{ appTitle }}</v-toolbar-title></router-link>
             <v-spacer></v-spacer>
             <v-toolbar-items>
                 <v-btn
@@ -63,7 +63,7 @@
             return {
                 appTitle: 'Game Guides',
                 menuItems: [
-                    {title: 'Builds & Guides', path: '/guides'},
+                    {title: 'Builds & Guides', path: '/lol/guides'},
                     {title: 'Create Guide', path: '/signup'},
                 ],
             }
@@ -78,5 +78,9 @@
 
     .text-field {
         height: 15px;
+    }
+
+    .app-title {
+        text-decoration: none;
     }
 </style>
