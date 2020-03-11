@@ -2,7 +2,8 @@
 const lolStore = {
     state: {
         championData: [],
-        freeChampionRotation: []
+        freeChampionRotation: [],
+        guides: []
     },
     mutations: {
         SET_CHAMPION_DATA(state, data) {
@@ -25,6 +26,9 @@ const lolStore = {
                 }
                 state.freeChampionRotation = newData;
             }
+        },
+        SET_GUIDES(state, data) {
+            state.guides = data;
         }
     },
     actions: {
@@ -33,6 +37,9 @@ const lolStore = {
         },
         setFreeChampionRotation({commit}, champions) {
             commit('SET_FREE_CHAMPION_ROTATION', champions);
+        },
+        setGuides({commit}, guides) {
+            commit('SET_GUIDES', guides);
         }
     },
     modules: {
@@ -40,7 +47,8 @@ const lolStore = {
     },
     getters: {
         championData: state => state.championData,
-        freeChampionRotation: state => state.freeChampionRotation
+        freeChampionRotation: state => state.freeChampionRotation,
+        lolGuides: state => state.guides,
     }
 }
 
