@@ -1,4 +1,4 @@
-import lol from '../components/leagueoflegends/guides/GuidesList'
+import lol from '../components/leagueoflegends/guidelist/GuidesList'
 
 const components = {
     lol
