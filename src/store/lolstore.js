@@ -10,16 +10,12 @@ const lolStore = {
             state.championData = data;
         },
         SET_FREE_CHAMPION_ROTATION(state, data) {
-            if(state.championData !== [] || state.championData !== undefined)
-            {
+            if (state.championData !== [] || state.championData !== undefined) {
                 let newData = [];
-                for(const champion in state.championData)
-                {
+                for (const champion in state.championData) {
                     let d = state.championData[champion];
-                    if(d.key !== undefined)
-                    {
-                        if(data.freeChampionIds.includes(parseInt(d.key)))
-                        {
+                    if (d.key !== undefined) {
+                        if (data.freeChampionIds.includes(parseInt(d.key))) {
                             newData.push(state.championData[champion]);
                         }
                     }
@@ -28,11 +24,17 @@ const lolStore = {
             }
         },
         SET_GUIDES(state, data) {
-            state.guides = data;
+            for(let i = 0; i < data.length; i++)
+            {
+                state.guides.push(data[i]);
+            }
+        },
+        RESET_GUIDES(state) {
+            state.guides = [];
         }
     },
     actions: {
-        setChampionData ({ commit }, games) {
+        setChampionData({commit}, games) {
             commit('SET_CHAMPION_DATA', games);
         },
         setFreeChampionRotation({commit}, champions) {
@@ -40,15 +42,16 @@ const lolStore = {
         },
         setGuides({commit}, guides) {
             commit('SET_GUIDES', guides);
+        },
+        resetGuides({ commit }) {
+            commit('RESET_GUIDES');
         }
     },
-    modules: {
-
-    },
+    modules: {},
     getters: {
         championData: state => state.championData,
         freeChampionRotation: state => state.freeChampionRotation,
-        lolGuides: state => state.guides,
+        lolGuides: state => state.guides
     }
 }
 

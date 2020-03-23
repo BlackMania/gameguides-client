@@ -1,0 +1,72 @@
+<template>
+    <div v-if="this.championData !== undefined" class="d-flex pa-1 ma-2 guide" :style="{ backgroundColor: $vuetify.theme.themes[this.$root.theme].secondary}">
+        <VImg max-width="8%" :src="'http://localhost:3000/lol/img/champion/' + championData.image.full">
+            <div class="lane"> {{ lane }}</div>
+            <div class="patch-version pa-0">{{ patchversion }}</div>
+        </VImg>
+        <div class="ml-5 flex-fill" style="height: auto">
+            <h1>
+            {{ title}}
+            </h1>
+            <span>Created by {{ madeby }}</span>
+        </div>
+        <div class="pa-4 justify-center align-center stats">
+            <div>
+                <v-icon color="#347c33">mdi-thumb-up</v-icon>
+                <v-icon color="#aa3933">mdi-thumb-down</v-icon>
+                {{ upvotes }}
+            </div>
+            <div><v-icon class="mr-4" color="white">mdi-eye</v-icon>{{ views }}</div>
+        </div>
+    </div>
+</template>
+
+<script>
+    import { mapState } from 'vuex'
+    export default {
+        name: "GuideListItem",
+        props: {
+            title: String,
+            content: String,
+            champion: String,
+            uuid: String,
+            madeby: String,
+            patchversion: String,
+            lane: String,
+            created: Date,
+            lastUpdate: Date,
+            upvotes: Number,
+            views: Number
+        },
+        computed: mapState({
+            championData: function (state) {
+                let self = this;
+                return state.lol.championData[self.champion];
+            }
+        }),
+    }
+</script>
+
+<style scoped>
+
+    .guide:hover {
+        cursor: pointer;
+        opacity: 0.8;
+    }
+
+    .lane {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+    }
+
+    .patch-version {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: black;
+        opacity: 0.8;
+        text-align: center;
+    }
+</style>

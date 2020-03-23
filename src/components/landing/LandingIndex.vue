@@ -48,13 +48,7 @@
             }
         },
         created() {
-            APIService.get("/gg/supportedgames")
-                .then(response => {
-                    this.$store.dispatch('setSupportedGames', response.data);
-                })
-                .catch(error => {
-                    window.console.log(error);
-                })
+            APIService.loadSupportedGames();
         }
     }
 </script>

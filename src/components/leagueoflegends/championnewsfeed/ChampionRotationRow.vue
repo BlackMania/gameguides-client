@@ -23,19 +23,8 @@
         data() {
             return {}
         },
-        methods: {
-            getFreeChampRotation: function () {
-                APIService.get("/lol/champion-rotations")
-                    .then(response => {
-                        this.$store.dispatch('setFreeChampionRotation', response.data)
-                    })
-                    .catch(error => {
-                        window.console.log(error)
-                    })
-            }
-        },
         created() {
-            this.getFreeChampRotation();
+            APIService.loadLolFreeChampionRotation();
         }
     }
 </script>

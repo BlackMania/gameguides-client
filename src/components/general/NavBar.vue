@@ -64,7 +64,7 @@
                 appTitle: 'Game Guides',
                 menuItems: [
                     {title: 'Builds & Guides', path: '/lol/guides'},
-                    {title: 'Create Guide', path: '/signup'},
+                    {title: 'Create Guide', path: '/lol/createguide'},
                 ],
             }
         }

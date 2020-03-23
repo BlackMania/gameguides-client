@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import LandingIndex from "@/components/landing/LandingIndex";
 import GameSelector from "@/js/GameSelector";
+import GuideListSelector from "../js/GuideListSelector";
 import GuideSelector from "../js/GuideSelector";
 
 Vue.use(VueRouter)
@@ -21,12 +22,18 @@ const routes = [
             {
                 path: 'guides',
                 name: 'guides',
-                component: GuideSelector,
+                component: GuideListSelector,
                 props: (route) => ({game: route.params.game}),
             },
             {
                 path: 'guides/:id',
                 name: 'guide',
+                component: GuideSelector,
+                props: (route) => ({game: route.params.game}),
+            },
+            {
+                path: 'createguide',
+                name: 'createguide',
                 props: (route) => ({game: route.params.game}),
             }
         ]

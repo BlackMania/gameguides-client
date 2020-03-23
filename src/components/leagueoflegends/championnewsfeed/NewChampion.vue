@@ -25,14 +25,14 @@
                 let newChamp = undefined;
                 for(const champion in this.$store.getters.championData)
                 {
-                    let d = this.$store.getters.championData[champion];
+                    let nextChampion = this.$store.getters.championData[champion];
                     if(newChamp === undefined)
                     {
-                        newChamp = d;
+                        newChamp = nextChampion;
                     }
-                    if(parseInt(newChamp.key) < parseInt(d.key))
+                    if(parseInt(newChamp.key) < parseInt(nextChampion.key))
                     {
-                        newChamp = d;
+                        newChamp = nextChampion;
                     }
                 }
                 return newChamp;
