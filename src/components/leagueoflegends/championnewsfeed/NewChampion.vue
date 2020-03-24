@@ -72,7 +72,7 @@
     .champ-title {
         text-transform: uppercase;
         position: absolute;
-        top: 110px;
+        top: 120px;
         left: 50px;
         font-family: "Palatino Linotype";
         font-size: 30px;

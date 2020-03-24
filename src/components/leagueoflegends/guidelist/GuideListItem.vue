@@ -1,4 +1,5 @@
 <template>
+    <router-link class="no-link" :to="{name: 'guide', params: { id: this.uuid }}">
     <div v-if="this.championData !== undefined" class="d-flex pa-1 ma-2 guide" :style="{ backgroundColor: $vuetify.theme.themes[this.$root.theme].secondary}">
         <VImg max-width="8%" :src="'http://localhost:3000/lol/img/champion/' + championData.image.full">
             <div class="lane"> {{ lane }}</div>
@@ -19,6 +20,7 @@
             <div><v-icon class="mr-4" color="white">mdi-eye</v-icon>{{ views }}</div>
         </div>
     </div>
+    </router-link>
 </template>
 
 <script>
@@ -68,5 +70,10 @@
         background-color: black;
         opacity: 0.8;
         text-align: center;
+    }
+
+    .no-link {
+        color: white;
+        text-decoration: none;
     }
 </style>

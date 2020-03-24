@@ -42,4 +42,14 @@ function loadLolGuides(page, size, $state) {
         });
 }
 
-export default { loadSupportedGames, loadLolFreeChampionRotation, loadLolGuides };
+function loadSelectedGuide(id) {
+    return service.get("/gg/lol/guide/" + id)
+        .then(response => {
+           store.dispatch('setSelectedGuide', response.data)
+        })
+        .catch(error => {
+            throw error.message;
+        })
+}
+
+export default { loadSupportedGames, loadLolFreeChampionRotation, loadLolGuides, loadSelectedGuide };
