@@ -12,8 +12,7 @@ function loadSupportedGames() {
             store.dispatch('setSupportedGames', response.data);
         })
         .catch(error => {
-            window.console.log(error);
-            throw new Error("We were unable to load the supported games of the website.")
+            throw error.message;
         })
 }
 
@@ -23,8 +22,7 @@ function loadLolFreeChampionRotation() {
             store.dispatch('setFreeChampionRotation', response.data)
         })
         .catch(error => {
-            window.console.log(error);
-            throw new Error("We were unable to load the free champion rotation")
+            throw error.message;
         })
 }
 
@@ -37,8 +35,7 @@ function loadLolGuides(page, size, $state) {
                 $state.complete();
         })
         .catch(error => {
-            window.console.log(error);
-            throw new Error("We were unable to load guides")
+            throw error.message;
         });
 }
 
@@ -52,4 +49,25 @@ function loadSelectedGuide(id) {
         })
 }
 
-export default { loadSupportedGames, loadLolFreeChampionRotation, loadLolGuides, loadSelectedGuide };
+function loadIndividualChampion(champion) {
+    return service.get("/lol/data/en_US/champion/" + champion)
+        .then(response => {
+            store.dispatch('setIndividualChampion', response.data.data[champion])
+        })
+        .catch(error => {
+            throw error.message;
+        })
+}
+
+function loadLolVersions() {
+    return service.get("/lol/versions")
+        .then(response => {
+            store.dispatch('setVersions', response.data)
+        })
+        .catch(error => {
+            throw error.message;
+        })
+}
+
+export default { loadSupportedGames, loadLolFreeChampionRotation, loadLolGuides, loadSelectedGuide,
+    loadIndividualChampion, loadLolVersions };
