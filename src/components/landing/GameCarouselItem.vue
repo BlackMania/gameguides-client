@@ -27,7 +27,7 @@
         },
         computed: {
             getImg() {
-                return require('../../assets/images/carousel/' + this.shorthand + '.jpg');
+                return require('@/assets/images/carousel/' + this.shorthand + '.jpg');
             }
         }
     }
