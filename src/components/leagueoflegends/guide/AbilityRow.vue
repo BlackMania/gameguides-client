@@ -1,0 +1,65 @@
+<template>
+    <div class="d-flex pa-1 flex-shrink-0">
+        <div class="mr-1">
+            <VImg  :src="loadSpell"/>
+        </div>
+        <div>
+            <h3 class="ml-1">{{ spellName }}</h3>
+            <span>
+                <v-row class="no-gutters">
+                    <v-col class="flex-grow-0 box ml-1 mr-1" v-for="(n, index) in boxes" :key="index"
+                    :style="{backgroundColor: $vuetify.theme.themes[self.$root.theme].secondary}"
+                    >
+                        <div v-if="isBoxSelected(n)" class="box-active pa-1"> {{ n }} </div>
+                    </v-col>
+                </v-row>
+            </span>
+        </div>
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "AbilityRow",
+        props: {
+            spellName: String,
+            spellImage: String,
+            skillKey: String,
+            skillOrder: Array
+        },
+        data() {
+            return {
+                self: this,
+                boxes: 18
+            }
+        },
+        methods: {
+            isBoxSelected(index) {
+                return this.skillOrder[index - 1].includes(this.skillKey)
+            }
+        },
+        computed: {
+            loadSpell(){
+                return require(`@/assets/lol/10.6.1/img/spell/${this.spellImage}`);
+            },
+        }
+    }
+</script>
+
+<style scoped>
+.box {
+    min-height: 35px;
+    min-width: 30px;
+    max-height: 35px;
+    max-width: 30px;
+    text-align: center;
+    display:inline-block;
+}
+
+    .box-active {
+        display:inline-block;
+        height: 35px;
+        width: 30px;
+        background-color: green;
+    }
+</style>

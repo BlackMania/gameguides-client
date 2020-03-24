@@ -4,7 +4,7 @@
                           borderWidth: '5px', borderColor: $vuetify.theme.themes[this.$root.theme].secondary, borderStyle: 'solid'}">
         <div class="content">
             <img height="200px" width="100%" class="banner-img"
-                 :src="'http://localhost:3000/lol/img/champion/splash/' + image.split('.')[0] + '_0.jpg'"/>
+                 :src="loadSplash"/>
             <div class="champ-name">
                 {{ championName }}
                 <span v-for="(tag, index) in championTag" :key="index" class="champ-tag">{{ tag }}
@@ -16,10 +16,12 @@
             </div>
             <div class="stat-bar">
                 <div class="d-flex justify-center" style="flex-flow: row wrap;">
-                    <div class="pr-4 pl-4 stat-content">
+                    <div class="pa-1 stat-content">
+                        <v-icon color="grey" class="pr-2 pl-2">mdi-thumb-up</v-icon>
                         {{ votes }} VOTES
                     </div>
-                    <div class="pr-4 pl-4 stat-content">
+                    <div class="pa-1 stat-content">
+                        <v-icon color="grey" class="pr-2 pl-2">mdi-eye</v-icon>
                         {{ views }} VIEWS
                     </div>
                 </div>
@@ -38,6 +40,11 @@
             championTag: Array,
             votes: Number,
             views: Number
+        },
+        computed: {
+            loadSplash(){
+                return require(`@/assets/lol/img/champion/splash/${this.image.replace(".png", "_0.jpg")}`);
+            }
         }
     }
 </script>
@@ -98,15 +105,27 @@
         position: absolute;
         bottom: 0;
         right: 0;
-        background-color: black;
-        opacity: 0.5;
+        background-color: rgba(0,0,0,0.5);
         width: 20%;
+    }
+
+    .stat-bar::after {
+        content: '';
+        position: absolute;
+        right: 100%;
+        top: 0;
+        width: 20px;
+        height: 0;
+        border-width:0 0 40px 60px;
+        border-style:solid;
+        border-color:transparent rgba(0,0,0,0.5) rgba(0,0,0,0.5) transparent;
     }
 
     .content {
         position: relative;
         height: 200px;
         width: 100%;
+        overflow: hidden;
     }
 
     .stat-content {

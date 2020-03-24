@@ -1,38 +1,57 @@
 <template>
-    <div v-if="championData != null || championData !== undefined" class="white--text">
+    <div v-if="this.individualChampionData" class="white--text">
         <Banner
-                :champion-name="championData.name"
-                :champion-tag="championData.tags"
-                :champion-title="championData.title"
-                :image="championData.image.full"
+                :champion-name="this.individualChampionData.name"
+                :champion-tag="this.individualChampionData.tags"
+                :champion-title="this.individualChampionData.title"
+                :image="this.individualChampionData.image.full"
                 :votes="this.$store.getters.guide.upvotes"
                 :views="this.$store.getters.guide.views"
-
         />
+
+        <AbilityOrder :abilities="this.individualChampionData.spells" :passive="this.individualChampionData.passive"/>
+    </div>
+    <div v-else class="loading">
+        <v-progress-circular
+                indeterminate
+                color="black"
+                size="100"
+                width="10"
+        ></v-progress-circular>
     </div>
 </template>
 
 <script>
     import APIService from "@/js/APIService";
-    import { mapState } from 'vuex'
+    import {mapState} from 'vuex'
     import Banner from "@/components/leagueoflegends/guide/Banner";
+    import AbilityOrder from "./AbilityOrder";
+
     export default {
         name: "GuideContainer",
-        components: {Banner},
-        created() {
-            APIService.loadSelectedGuide(this.$route.params.id);
+        components: {AbilityOrder, Banner},
+        async created() {
+            await APIService.loadSelectedGuide(this.$route.params.id);
+            APIService.loadIndividualChampion(this.$store.getters.guide.champion)
         },
         beforeDestroy() {
             this.$store.dispatch('resetSelectedGuide');
+            this.$store.dispatch('resetIndividualChampion');
         },
         computed: mapState({
-            championData: function (state) {
-                return state.lol.championData[state.lol.guide.champion];
+            individualChampionData: function (state) {
+                return state.lol.individualChampionData;
             }
         }),
     }
 </script>
 
 <style scoped>
-
+    .loading {
+        margin-top: 1%;
+        height: 75vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 </style>
