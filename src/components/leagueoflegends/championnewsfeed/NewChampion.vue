@@ -1,18 +1,19 @@
 <template>
     <div
-            v-if="getChampionData !== undefined"
             class="white--text img-box d-flex"
     >
         <img
-                :src="'http://localhost:3000/lol/img/champion/splash/' + getChampionData.name + '_0.jpg'"
+                :src="loadSplash"
                 class="newest-champion flex-fill"
         />
         <div class="champ-name">
-            {{ getChampionData.name }}
-            <span class="champ-tag"> {{ getChampionData.tags[0] }} </span>
+            {{ championName}}
+            <span v-for="(tag, index) in championTags" :key="index" class="champ-tag">{{ tag }}
+                <span v-if="index !== championTags.length - 1"> / </span>
+            </span>
         </div>
         <div class="champ-title">
-            {{ getChampionData.title }}
+            {{ championTitle }}
         </div>
     </div>
 </template>
@@ -20,40 +21,36 @@
 <script>
     export default {
         name: "NewChampion",
+        props: {
+            championName: String,
+            championTags: Array,
+            championTitle: String
+        },
         computed: {
-            getChampionData() {
-                let newChamp = undefined;
-                for(const champion in this.$store.getters.championData)
-                {
-                    let nextChampion = this.$store.getters.championData[champion];
-                    if(newChamp === undefined)
-                    {
-                        newChamp = nextChampion;
-                    }
-                    if(parseInt(newChamp.key) < parseInt(nextChampion.key))
-                    {
-                        newChamp = nextChampion;
-                    }
-                }
-                return newChamp;
-            }
+            loadSplash() {
+                return require(`@/assets/lol/img/champion/splash/${this.championName}_0.jpg`);
+            },
+
+        },
+        created() {
+            this.champion = this.getChampion;
         }
     }
 </script>
 
 <style scoped>
-.newest-champion {
-    object-fit: cover;
-    object-position: 0px 0px;
-    width: 100%;
-    height: 180px;
-    user-drag: none;
-    user-select: none;
-    -moz-user-select: none;
-    -webkit-user-drag: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-}
+    .newest-champion {
+        object-fit: cover;
+        object-position: 0px 0px;
+        width: 100%;
+        height: 180px;
+        user-drag: none;
+        user-select: none;
+        -moz-user-select: none;
+        -webkit-user-drag: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+    }
 
     .img-box {
         position: relative;
