@@ -1,10 +1,13 @@
 // League of Legends Store
 const lolStore = {
     state: {
-        championData: [],
+        championData: null,
+        individualChampionData: null,
         freeChampionRotation: [],
         guides: [],
-        guide: []
+        guide: [],
+        versions: [],
+        resourceVersion: null
     },
     mutations: {
         SET_CHAMPION_DATA(state, data) {
@@ -38,6 +41,16 @@ const lolStore = {
         },
         RESET_SELECTED_GUIDE(state) {
             state.guide = []
+        },
+        SET_INDIVIDUAL_CHAMPION(state, data) {
+            state.individualChampionData = data;
+        },
+        RESET_INDIVIDUAL_CHAMPION(state) {
+            state.individualChampionData = null;
+        },
+        SET_VERSIONS(state, data) {
+            state.versions = data;
+            state.resourceVersion = "10.6.1"
         }
     },
     actions: {
@@ -58,6 +71,15 @@ const lolStore = {
         },
         setSelectedGuide({commit}, guide) {
             commit('SET_SELECTED_GUIDE', guide);
+        },
+        setIndividualChampion({commit}, data) {
+            commit('SET_INDIVIDUAL_CHAMPION', data);
+        },
+        resetIndividualChampion({commit}) {
+            commit('RESET_INDIVIDUAL_CHAMPION');
+        },
+        setVersions({commit}, versions) {
+            commit('SET_VERSIONS', versions);
         }
     },
     modules: {},
@@ -65,7 +87,12 @@ const lolStore = {
         championData: state => state.championData,
         freeChampionRotation: state => state.freeChampionRotation,
         lolGuides: state => state.guides,
-        guide: state => state.guide
+        guide: state => state.guide,
+        individualChampionData: state => state.individualChampionData,
+        versions: state => state.versions,
+        resourceVersion: state => state.resourceVersion
+
+
     }
 }
 
