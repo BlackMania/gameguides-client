@@ -8,8 +8,11 @@
                 :votes="this.$store.getters.guide.upvotes"
                 :views="this.$store.getters.guide.views"
         />
-
-        <AbilityOrder :abilities="this.individualChampionData.spells" :passive="this.individualChampionData.passive"/>
+        <div class="d-flex ability-rune-box">
+            <AbilityOrder  :abilities="this.individualChampionData.spells"
+                          :passive="this.individualChampionData.passive" style="width: 52%; min-width: 52%; margin-right: 1%;"/>
+            <RuneOrder class="flex-fill"/>
+        </div>
     </div>
     <div v-else class="loading">
         <v-progress-circular
@@ -25,11 +28,12 @@
     import APIService from "@/js/APIService";
     import {mapState} from 'vuex'
     import Banner from "@/components/leagueoflegends/guide/Banner";
-    import AbilityOrder from "./AbilityOrder";
+    import AbilityOrder from "./abilitybox/AbilityOrder";
+    import RuneOrder from "./runebox/RuneOrder";
 
     export default {
         name: "GuideContainer",
-        components: {AbilityOrder, Banner},
+        components: { RuneOrder, AbilityOrder, Banner},
         async created() {
             await APIService.loadSelectedGuide(this.$route.params.id);
             APIService.loadIndividualChampion(this.$store.getters.guide.champion)
@@ -53,5 +57,9 @@
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    .ability-rune-box {
+        margin-top: 1%;
     }
 </style>
