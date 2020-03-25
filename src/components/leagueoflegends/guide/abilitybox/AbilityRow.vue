@@ -1,13 +1,13 @@
 <template>
     <div class="d-flex pa-1 flex-shrink-0">
-        <div class="mr-1">
+        <div class="mr-1 justify-center align-center d-flex">
             <VImg  :src="loadSpell"/>
         </div>
         <div>
             <h3 class="ml-1">{{ spellName }}</h3>
             <span>
-                <v-row class="no-gutters">
-                    <v-col class="flex-grow-0 box ml-1 mr-1" v-for="(n, index) in boxes" :key="index"
+                <v-row class="no-gutters d-flex">
+                    <v-col class=" box" v-for="(n, index) in boxes" :key="index"
                     :style="{backgroundColor: $vuetify.theme.themes[self.$root.theme].secondary}"
                     >
                         <div v-if="isBoxSelected(n)" class="box-active pa-1"> {{ n }} </div>
@@ -35,6 +35,7 @@
         },
         methods: {
             isBoxSelected(index) {
+                if(this.skillOrder[index -1] === undefined) return false;
                 return this.skillOrder[index - 1].includes(this.skillKey)
             }
         },
@@ -53,11 +54,10 @@
     max-height: 35px;
     max-width: 30px;
     text-align: center;
-    display:inline-block;
+    margin: 2px;
 }
 
     .box-active {
-        display:inline-block;
         height: 35px;
         width: 30px;
         background-color: green;

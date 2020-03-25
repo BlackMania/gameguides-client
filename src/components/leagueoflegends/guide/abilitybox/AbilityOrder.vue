@@ -1,7 +1,7 @@
 <template>
     <div :style="{ backgroundColor: $vuetify.theme.themes[this.$root.theme].tertiary,
-             borderWidth: '5px', borderColor: $vuetify.theme.themes[this.$root.theme].secondary, borderStyle: 'solid'}" class="pa-1 ability-order"
-        style="margin-top: 1%"
+             borderWidth: '5px', borderColor: $vuetify.theme.themes[this.$root.theme].secondary, borderStyle: 'solid'}"
+         class="pa-2 ability-order d-flex flex-column justify-center"
     >
         <PassiveRow :passive-image="passive.image.full" :passive-description="passive.description" :passive-name="passive.name" />
         <AbilityRow v-for="(ability, index) in this.abilities"
@@ -45,7 +45,4 @@
 </script>
 
 <style scoped>
-    .ability-order {
-        width: 52%;
-    }
 </style>
