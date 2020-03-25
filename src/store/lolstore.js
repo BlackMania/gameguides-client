@@ -7,7 +7,8 @@ const lolStore = {
         guides: [],
         guide: [],
         versions: [],
-        resourceVersion: null
+        resourceVersion: null,
+        runeInfo: null
     },
     mutations: {
         SET_CHAMPION_DATA(state, data) {
@@ -51,6 +52,9 @@ const lolStore = {
         SET_VERSIONS(state, data) {
             state.versions = data;
             state.resourceVersion = "10.6.1"
+        },
+        SET_RUNE_INFO(state, data) {
+            state.runeInfo = data;
         }
     },
     actions: {
@@ -80,6 +84,10 @@ const lolStore = {
         },
         setVersions({commit}, versions) {
             commit('SET_VERSIONS', versions);
+        },
+        setRuneInfo({commit}, runedata)
+        {
+            commit('SET_RUNE_INFO', runedata)
         }
     },
     modules: {},
@@ -90,8 +98,11 @@ const lolStore = {
         guide: state => state.guide,
         individualChampionData: state => state.individualChampionData,
         versions: state => state.versions,
-        resourceVersion: state => state.resourceVersion
-
+        resourceVersion: state => state.resourceVersion,
+        runeInfo: state => state.runeInfo,
+        getRuneInfo: (state) => (name) => {
+            return state.runeInfo.filter(rune => rune.name === name)
+        },
 
     }
 }
