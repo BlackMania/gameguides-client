@@ -31,14 +31,12 @@
         async created() {
             await APIService.loadLolVersions();
             await this.$store.dispatch('setChampionData', require('@/assets/lol/' + this.$store.getters.versions[0] + '/data/en_US/champion.json').data);
+            await this.$store.dispatch('setRuneInfo', require('@/assets/lol/' + this.$store.getters.versions[0] + '/data/en_US/runesReforged.json'));
         }
     }
 </script>
 
 <style scoped>
     .index-container {
-        margin-left: 20%;
-        margin-right: 20%;
-        width: 60%;
     }
 </style>
