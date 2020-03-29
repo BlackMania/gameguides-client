@@ -14,10 +14,15 @@
             <div class="champ-title">
                 {{championTitle}}
             </div>
+
+            <div class="guide-name pa-1">
+                {{ this.$store.getters.guide.title }}
+                <span class="made-by">By {{this.$store.getters.guide.madeby.username}}</span>
+            </div>
             <div class="stat-bar">
                 <div class="d-flex justify-center" style="flex-flow: row wrap;">
                     <div class="pa-1 stat-content">
-                        <v-icon color="grey" class="pr-2 pl-2">mdi-thumb-up</v-icon>
+                        <v-icon color="grey" class="pr-2 pl-2 vote-btn">mdi-thumb-up</v-icon>
                         {{ votes }} VOTES
                     </div>
                     <div class="pa-1 stat-content">
@@ -42,7 +47,7 @@
             views: Number
         },
         computed: {
-            loadSplash(){
+            loadSplash() {
                 return require(`@/assets/lol/img/champion/splash/${this.image.replace(".png", "_0.jpg")}`);
             }
         }
@@ -75,6 +80,10 @@
         -ms-user-select: none;
     }
 
+    .vote-btn:hover {
+        color: green !important;
+    }
+
     .champ-title {
         text-transform: uppercase;
         position: absolute;
@@ -87,6 +96,11 @@
         -moz-user-select: none;
         -webkit-user-select: none;
         -ms-user-select: none;
+    }
+
+    .made-by {
+        font-size: 15px;
+        color: grey;
     }
 
     .champ-tag {
@@ -105,7 +119,7 @@
         position: absolute;
         bottom: 0;
         right: 0;
-        background-color: rgba(0,0,0,0.5);
+        background-color: rgba(0, 0, 0, 0.5);
         width: 20%;
     }
 
@@ -116,9 +130,9 @@
         top: 0;
         width: 20px;
         height: 0;
-        border-width:0 0 40px 60px;
-        border-style:solid;
-        border-color:transparent rgba(0,0,0,0.5) rgba(0,0,0,0.5) transparent;
+        border-width: 0 0 40px 60px;
+        border-style: solid;
+        border-color: transparent rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.5) transparent;
     }
 
     .content {
@@ -131,5 +145,30 @@
     .stat-content {
         opacity: 1;
         color: white;
+    }
+
+    .guide-name {
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 30px;
+        font-family: "Candara";
+        width: auto;
+        min-width: 20%;
+        text-align: center;
+        background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .guide-name::after {
+        transform: scaleY(-1);
+        content: '';
+        position: absolute;
+        right: 100%;
+        top: 0;
+        width: 50px;
+        height: 0;
+        border-width: 0 0 52.89px 90px;
+        border-style: solid;
+        border-color: transparent rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.5) transparent;
     }
 </style>

@@ -8,7 +8,7 @@ const lolStore = {
         guide: [],
         versions: [],
         resourceVersion: null,
-        runeInfo: null
+        runeInfo: null,
     },
     mutations: {
         SET_CHAMPION_DATA(state, data) {

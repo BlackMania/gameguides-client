@@ -15,7 +15,6 @@
             <div class="pa-4 justify-center align-center stats">
                 <div>
                     <v-icon color="#347c33">mdi-thumb-up</v-icon>
-                    <v-icon color="#aa3933">mdi-thumb-down</v-icon>
                     {{ upvotes }}
                 </div>
                 <div>

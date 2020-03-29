@@ -13,6 +13,7 @@
                           :passive="this.individualChampionData.passive" style="width: 52%; min-width: 52%; margin-right: 1%;"/>
             <RuneOrder class="flex-fill"/>
         </div>
+        
     </div>
     <div v-else class="loading">
         <v-progress-circular
