@@ -43,7 +43,7 @@
                             color="secondary"
                             height="auto"
                     >
-                        <second-step :champion="champion"  style="margin: auto"/>
+                        <second-step :champion="champion" style="margin: auto"/>
 
                     </v-card>
 

@@ -1,14 +1,18 @@
 <template>
     <div style="width: 42%">
-        <AbilityContainer :champion-data="championData"/>
+        <AbilityOrder
+                v-if="championData != null"
+                :editable="true"
+                :abilities="this.championData.spells"
+                :passive="this.championData.passive"/>
     </div>
 </template>
 
 <script>
-    import AbilityContainer from "./abilitybox/AbilityContainer";
+    import AbilityOrder from "../../guide/abilitybox/AbilityOrder";
     export default {
         name: "SecondStep",
-        components: {AbilityContainer},
+        components: {AbilityOrder},
         props: {
             champion: String
         },
@@ -18,8 +22,8 @@
                 championData: null
             }
         },
-        watch: {
-            champion: function(val) {
+        methods: {
+            getChampionData(val) {
                 let data = require("@/assets/lol/10.6.1/data/en_US/championFull.json").data;
                 for(const champ in data)
                 {
@@ -30,8 +34,13 @@
                 }
             }
         },
+        watch: {
+            champion: function(val) {
+               this.getChampionData(val);
+            }
+        },
         created() {
-
+            this.getChampionData(this.champion);
         }
     }
 </script>

@@ -9,11 +9,14 @@
                 :views="this.$store.getters.guide.views"
         />
         <div class="d-flex ability-rune-box">
-            <AbilityOrder  :abilities="this.individualChampionData.spells"
-                          :passive="this.individualChampionData.passive" style="width: 52%; min-width: 52%; margin-right: 1%;"/>
+            <AbilityOrder
+                    :editable="false"
+                    :abilities="this.individualChampionData.spells"
+                    :passive="this.individualChampionData.passive"
+                    style="width: 52%; min-width: 52%; margin-right: 1%;"/>
             <RuneOrder class="flex-fill"/>
         </div>
-        
+
     </div>
     <div v-else class="loading">
         <v-progress-circular
@@ -34,7 +37,7 @@
 
     export default {
         name: "GuideContainer",
-        components: { RuneOrder, AbilityOrder, Banner},
+        components: {RuneOrder, AbilityOrder, Banner},
         async created() {
             await APIService.loadSelectedGuide(this.$route.params.id);
             APIService.loadIndividualChampion(this.$store.getters.guide.champion)
