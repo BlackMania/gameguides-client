@@ -40,7 +40,7 @@ function loadLolGuides(page, size, $state) {
 }
 
 function loadSelectedGuide(id) {
-    return service.get("/gg/lol/guide/" + id)
+    return service.get("/gg/lol/guides/" + id)
         .then(response => {
            store.dispatch('setSelectedGuide', response.data)
         })
