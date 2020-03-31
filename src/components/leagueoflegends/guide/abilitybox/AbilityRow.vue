@@ -41,8 +41,8 @@
             },
             addSkill(index) {
                 let skillOrder = this.$parent.$parent.$parent.$parent.$parent.$parent.skillOrder;
-                if (skillOrder.length !== 18) {
-                    this.$parent.$parent.$parent.$parent.$parent.$parent.skillOrder.push(index + 1 + this.skillKey)
+                if (this.$parent.editable && skillOrder.length <= 18) {
+                    this.$set(this.$parent.$parent.$parent.$parent.$parent.$parent.skillOrder, index -1, index + this.skillKey)
                 }
             }
         },
