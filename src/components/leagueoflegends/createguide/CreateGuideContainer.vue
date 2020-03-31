@@ -69,7 +69,10 @@
                             class="mb-12"
                             color="secondary"
                             height="400px"
-                    ></v-card>
+                    >
+
+                        <third-step/>
+                    </v-card>
 
                     <div class="d-flex justify-space-between">
                         <v-btn
@@ -95,16 +98,20 @@
 <script>
     import FirstStep from "./steps/FirstStep";
     import SecondStep from "./steps/SecondStep";
+    import ThirdStep from "./steps/ThirdStep";
 
     export default {
         name: "CreateGuideContainer",
-        components: {SecondStep, FirstStep},
+        components: {ThirdStep, SecondStep, FirstStep},
         data() {
             return {
                 e1: 1,
                 title: "",
                 champion: "Aatrox",
-                skillOrder: []
+                skillOrder: [],
+                mainRunePath: [],
+                secondRunePath: [],
+                modStats: []
             }
         },
         methods: {
