@@ -50,7 +50,7 @@
                     <div class="d-flex justify-space-between">
                         <v-btn
                                 class="text-capitalize"
-                                @click="backFrom2"
+                                @click="e1= 1"
                                 color="secondary">
                             Back
                         </v-btn>
@@ -68,7 +68,7 @@
                     <v-card
                             class="mb-12"
                             color="secondary"
-                            height="400px"
+                            height="auto"
                     >
 
                         <third-step/>
@@ -108,18 +108,8 @@
                 e1: 1,
                 title: "",
                 champion: "Aatrox",
-                skillOrder: [],
-                mainRunePath: [],
-                secondRunePath: [],
-                modStats: []
             }
         },
-        methods: {
-            backFrom2() {
-                this.e1 = 1;
-                this.skillOrder = [];
-            }
-        }
     }
 </script>
 

@@ -1,22 +1,14 @@
 <template>
-    <div>
-        <div>
-
-        </div>
-        <div class="d-flex flex-row">
-            <div>
-                test
-            </div>
-            <div>
-                test
-            </div>
-        </div>
+    <div v-if="this.$store.getters.guide.skills">
+        <RuneOrder :editable="true" />
     </div>
 </template>
 
 <script>
+    import RuneOrder from "../../guide/runebox/RuneOrder";
     export default {
         name: "ThirdStep",
+        components: {RuneOrder},
     }
 </script>
 
