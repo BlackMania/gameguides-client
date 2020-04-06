@@ -1,3 +1,4 @@
+import Vue from 'vue'
 // League of Legends Store
 const lolStore = {
     state: {
@@ -29,8 +30,7 @@ const lolStore = {
             }
         },
         SET_GUIDES(state, data) {
-            for(let i = 0; i < data.length; i++)
-            {
+            for (let i = 0; i < data.length; i++) {
                 state.guides.push(data[i]);
             }
         },
@@ -41,7 +41,7 @@ const lolStore = {
             state.guide = data;
         },
         RESET_SELECTED_GUIDE(state) {
-            state.guide = []
+            state.guide = null
         },
         SET_INDIVIDUAL_CHAMPION(state, data) {
             state.individualChampionData = data;
@@ -55,6 +55,38 @@ const lolStore = {
         },
         SET_RUNE_INFO(state, data) {
             state.runeInfo = data;
+        },
+        SET_SKILL(state, data) {
+            Vue.set(state.guide.skills, data.ind, data.value);
+        },
+        SET_RUNE(state, data) {
+            if (state.guide.runeset.mainset[data.ind] === undefined) {
+                Vue.set(state.guide.runeset.mainset, data.ind, data.title);
+            } else if (state.guide.runeset.secondset[data.ind] === undefined) {
+                Vue.set(state.guide.runeset.secondset, data.ind, data.title);
+            }
+        },
+        REMOVE_RUNE(state, data) {
+            if (state.guide.runeset.mainset.includes(data.title)) {
+                if(data.title === state.guide.runeset.mainset[0])
+                {
+                    state.guide.runeset.mainset.fill(undefined);
+                }
+                Vue.set(state.guide.runeset.mainset, data.ind, undefined);
+            } else if (state.guide.runeset.secondset.includes(data.title)) {
+                if(data.title === state.guide.runeset.secondset[0])
+                {
+                    state.guide.runeset.secondset.fill(undefined);
+                }
+                Vue.set(state.guide.runeset.secondset, data.ind, undefined);
+            }
+        },
+        ADD_SUBRUNE(state, data) {
+            if (state.guide.runeset.mainset.includes(data.parent)) {
+                Vue.set(state.guide.runeset.mainset, data.ind, data.title);
+            } else if (state.guide.runeset.secondset.includes(data.parent)) {
+                Vue.set(state.guide.runeset.secondset, data.ind, data.title);
+            }
         }
     },
     actions: {
@@ -67,7 +99,7 @@ const lolStore = {
         setGuides({commit}, guides) {
             commit('SET_GUIDES', guides);
         },
-        resetGuides({ commit }) {
+        resetGuides({commit}) {
             commit('RESET_GUIDES');
         },
         resetSelectedGuide({commit}) {
@@ -85,9 +117,20 @@ const lolStore = {
         setVersions({commit}, versions) {
             commit('SET_VERSIONS', versions);
         },
-        setRuneInfo({commit}, runedata)
-        {
+        setRuneInfo({commit}, runedata) {
             commit('SET_RUNE_INFO', runedata)
+        },
+        setSkill({commit}, data) {
+            commit('SET_SKILL', data);
+        },
+        setRune({commit}, data) {
+            commit('SET_RUNE', data);
+        },
+        removeRune({commit}, data) {
+            commit('REMOVE_RUNE', data);
+        },
+        addSubRune({commit}, data) {
+            commit('ADD_SUBRUNE', data);
         }
     },
     modules: {},
