@@ -14,7 +14,7 @@
                     :abilities="this.individualChampionData.spells"
                     :passive="this.individualChampionData.passive"
                     style="width: 52%; min-width: 52%; margin-right: 1%;"/>
-            <RuneOrder class="flex-fill"/>
+            <RuneOrder :editable="false" class="flex-fill"/>
         </div>
 
     </div>
@@ -43,7 +43,6 @@
             APIService.loadIndividualChampion(this.$store.getters.guide.champion)
         },
         beforeDestroy() {
-            this.$store.dispatch('resetSelectedGuide');
             this.$store.dispatch('resetIndividualChampion');
         },
         computed: mapState({
