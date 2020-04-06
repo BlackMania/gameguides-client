@@ -12,7 +12,7 @@
                         :spell-image="ability.image.full"
                         :spell-name="ability.name"
                         :skill-key="getKey(index)"
-                        :skill-order="self.$store.getters.guide.skills.split(',')"
+                        :skill-order="self.$store.getters.guide.skills"
             />
         </div>
         <AbilityRow v-else v-for="(ability, index) in this.abilities"
@@ -20,7 +20,7 @@
                     :spell-image="ability.image.full"
                     :spell-name="ability.name"
                     :skill-key="getKey(index)"
-                    :skill-order="self.$parent.$parent.$parent.$parent.$parent.skillOrder"
+                    :skill-order="self.$store.getters.guide.skills"
         />
     </div>
 </template>

@@ -40,9 +40,8 @@
                 return this.skillOrder[index - 1].includes(this.skillKey)
             },
             addSkill(index) {
-                let skillOrder = this.$parent.$parent.$parent.$parent.$parent.$parent.skillOrder;
-                if (this.$parent.editable && skillOrder.length <= 18) {
-                    this.$set(this.$parent.$parent.$parent.$parent.$parent.$parent.skillOrder, index -1, index + this.skillKey)
+                if (this.$parent.editable && this.$store.getters.guide.skills.length <= 18) {
+                    this.$store.dispatch("setSkill", {ind : index -1, value: index + this.skillKey});
                 }
             }
         },
