@@ -30,8 +30,8 @@
         },
         async created() {
             await APIService.loadLolVersions();
-            await this.$store.dispatch('setChampionData', require('@/assets/lol/' + this.$store.getters.versions[0] + '/data/en_US/champion.json').data);
-            await this.$store.dispatch('setRuneInfo', require('@/assets/lol/' + this.$store.getters.versions[0] + '/data/en_US/runesReforged.json'));
+            await this.$store.dispatch('setChampionData', require('@/assets/lol/10.6.1/data/en_US/champion.json').data);
+            await this.$store.dispatch('setRuneInfo', require('@/assets/lol/10.6.1/data/en_US/runesReforged.json'));
         }
     }
 </script>
