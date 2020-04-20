@@ -59,12 +59,25 @@
                             >
                                 <div class="ma-1"
                                      :style="{border: '2px solid ' + getColor, borderRadius: '50px', opacity: '0.3'}">
-                                    <VImg class="disabled"  disabled="true" width="70px" :src="loadSubRuneImage(sub.key)"/>
+                                    <VImg class="disabled" disabled="true" width="70px"
+                                          :src="loadSubRuneImage(sub.key)"/>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div v-else>
+        <div class=" ma-1 d-flex flex-row align-center">
+            <div :style="{border: '2px solid ' + getColor, borderRadius: '50px'}"
+                 class="empty-rune-box ">
+                <VImg v-if="title" width="100px" :src="loadImage"></VImg>
+            </div>
+            <div class="flex-fill pl-3" :style="{  color: getColor }">
+                <div>{{ title.replace(/([A-Z])/g, ' $1').trim().toUpperCase() }}</div>
+                <div v-if="getDescription !== ''" class="rune-description">{{ sanitize(getDescription)}}</div>
             </div>
         </div>
     </div>
@@ -98,11 +111,30 @@
             removeRune(event) {
                 if (this.title === undefined) return;
                 this.$store.dispatch("removeRune", {ind: this.index, title: this.title});
+                if (!this.mainPath) {
+                    loop: for (let i = 1; i < this.$store.getters.guide.runeset.secondset.length; i++) {
+                        if(this.$store.getters.guide.runeset.secondset[i] === undefined)
+                        {
+                            this.$parent.disabledSecondset = undefined;
+                        } else {
+                            let obj = this.$parent.runeJson.filter(slot => slot.name === this.parentRune)[0].slots.slice(1);
+                            for (let scnLoop = 0; scnLoop < obj.length; scnLoop++) {
+                                for (let thrdLoop = 0; thrdLoop < obj[scnLoop].runes.length; thrdLoop++) {
+                                    if (obj[scnLoop].runes[thrdLoop].key === this.$store.getters.guide.runeset.secondset[i]) {
+                                        this.$parent.disabledSecondset = scnLoop;
+                                        break loop;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
                 event.preventDefault();
             },
             addSubRune(title, index) {
-                this.$parent.disabledSecondset = index;
-                window.console.log(index);
+                if (index !== undefined) {
+                    this.$parent.disabledSecondset = index;
+                }
                 this.$store.dispatch("addSubRune", {ind: this.index, title: title, parent: this.parentRune});
             },
         },
@@ -142,7 +174,7 @@
                 }
                 return "";
             },
-        }
+        },
     }
 </script>
 
