@@ -23,7 +23,7 @@
                             color="secondary"
                             height="auto"
                     >
-                        <first-step :champion="champion" style="margin: auto"/>
+                        <first-step style="margin: auto"/>
                     </v-card>
 
                     <div class="d-flex justify-end">
@@ -43,7 +43,7 @@
                             color="secondary"
                             height="auto"
                     >
-                        <second-step :champion="champion" style="margin: auto"/>
+                        <second-step style="margin: auto"/>
 
                     </v-card>
 
@@ -84,7 +84,7 @@
                         <v-btn
                                 class="text-capitalize"
                                 color="secondary"
-                                @click="e1 = 1"
+                                @click="save"
                         >
                             Finish
                         </v-btn>
@@ -106,10 +106,14 @@
         data() {
             return {
                 e1: 1,
-                title: "",
-                champion: "Aatrox",
+                self: this
             }
         },
+        methods: {
+            save() {
+                alert(JSON.stringify(this.$store.getters.guide))
+            }
+        }
     }
 </script>
 
