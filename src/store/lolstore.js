@@ -63,6 +63,7 @@ const lolStore = {
             if (state.guide.runeset.mainset[data.ind] === undefined) {
                 Vue.set(state.guide.runeset.mainset, data.ind, data.title);
             } else if (state.guide.runeset.secondset[data.ind] === undefined) {
+                if(state.guide.runeset.mainset[data.ind] === data.title) return;
                 Vue.set(state.guide.runeset.secondset, data.ind, data.title);
             }
         },
@@ -87,6 +88,12 @@ const lolStore = {
             } else if (state.guide.runeset.secondset.includes(data.parent)) {
                 Vue.set(state.guide.runeset.secondset, data.ind, data.title);
             }
+        },
+        UPDATE_TITLE(state, title) {
+            state.guide.title = title;
+        },
+        UPDATE_CHAMPION(state, champion) {
+            state.guide.champion = champion;
         }
     },
     actions: {
@@ -131,6 +138,12 @@ const lolStore = {
         },
         addSubRune({commit}, data) {
             commit('ADD_SUBRUNE', data);
+        },
+        updateTitle({commit}, title) {
+            commit('UPDATE_TITLE', title);
+        },
+        updateChampion({commit}, champion) {
+            commit('UPDATE_CHAMPION', champion);
         }
     },
     modules: {},
