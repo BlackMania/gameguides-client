@@ -1,5 +1,5 @@
 <template>
-    <div class="d-flex pa-1">
+    <div class="d-flex pa-1 white--text">
         <div class="mr-1 justify-center align-center d-flex">
             <VImg :src="loadPassive"/>
         </div>
