@@ -22,37 +22,24 @@
                         :to="item.path"
                 >{{ item.title }}
                 </v-btn>
-                <v-menu :close-on-content-click="false"  open-on-click :open-on-hover="false" bottom offset-y>
-                    <template v-slot:activator="{ on }">
-                        <v-btn class="pl-2 pr-2 text-capitalize"
-                               elevation="0"
-                               color="secondary"
-                               v-on="on"
-                               height="inherit"
-                               width="auto"
-                        >
-                            Sign In
-                        </v-btn>
-                    </template>
-
-                    <v-card tile class="pa-4" color="primary" :style="{color: $vuetify.theme.themes[this.$root.theme].text}">
-                        <v-card-title  class="justify-center">
-                            Sign In
-                        </v-card-title>
-                        <v-card-actions>
-                            <v-text-field placeholder="Username"></v-text-field>
-                        </v-card-actions>
-                        <v-card-actions class="text-field">
-                            <v-text-field placeholder="Password"></v-text-field>
-                        </v-card-actions>
-                        <v-card-actions class="mt-6 justify-center">
-                            <v-btn color="secondary" tile class="text-capitalize">Sign In</v-btn>
-                            <v-btn color="secondary" tile class="text-capitalize">Sign Up</v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-menu>
+                <v-btn class="pl-2 pr-2 text-capitalize"
+                       elevation="0"
+                       color="secondary"
+                       height="inherit"
+                       width="auto"
+                       @click.stop="showLogin = !showLogin"
+                >
+                    Sign In
+                </v-btn>
             </v-toolbar-items>
         </v-toolbar>
+        <v-dialog v-model="showLogin" width="50%">
+            <v-card>
+                <v-card-title>
+                    Login
+                </v-card-title>
+            </v-card>
+        </v-dialog>
     </v-card>
 </template>
 
@@ -66,8 +53,9 @@
                     {title: 'Builds & Guides', path: '/lol/guides'},
                     {title: 'Create Guide', path: '/lol/createguide'},
                 ],
+                showLogin: false
             }
-        }
+        },
     }
 </script>
 
