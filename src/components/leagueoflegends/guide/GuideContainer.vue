@@ -1,5 +1,8 @@
 <template>
     <div v-if="this.individualChampionData" class="white--text">
+        <v-alert transition="scale-transition" type="error" :value="error">
+            {{errorText}}
+        </v-alert>
         <Banner
                 :champion-name="this.individualChampionData.name"
                 :champion-tag="this.individualChampionData.tags"
@@ -8,15 +11,40 @@
                 :votes="this.$store.getters.guide.upvotes"
                 :views="this.$store.getters.guide.views"
         />
-        <div class="d-flex ability-rune-box">
+        <div class="d-flex ability-rune-box align-start">
             <AbilityOrder
-                    :editable="false"
+                    :editable="editable"
                     :abilities="this.individualChampionData.spells"
                     :passive="this.individualChampionData.passive"
-                    style="width: 52%; min-width: 52%; margin-right: 1%;"/>
-            <RuneOrder :editable="false" class="flex-fill"/>
+                    style="min-width: 41%; margin-right: 1%;"/>
+            <RuneOrder :editable="editable" :width="100" class="flex-fill"/>
         </div>
-
+        <v-tooltip top v-if="!editable" >
+            <template v-slot:activator="{ on }">
+                <v-btn @click="edit" v-on="on" class="btn-edit" color="primary" fab small>
+                    <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+            </template>
+            <span>Edit</span>
+        </v-tooltip>
+        <div v-else>
+            <v-tooltip top>
+                <template v-slot:activator="{ on }">
+                    <v-btn @click="save" v-on="on" class="btn-save" color="primary" fab small>
+                        <v-icon>mdi-check</v-icon>
+                    </v-btn>
+                </template>
+                <span>Save</span>
+            </v-tooltip>
+            <v-tooltip top>
+                <template v-slot:activator="{ on }">
+                    <v-btn @click="cancel" v-on="on" class="btn-cancel" color="grey darken-3" fab small>
+                        <v-icon color="white">mdi-close</v-icon>
+                    </v-btn>
+                </template>
+                <span>Cancel</span>
+            </v-tooltip>
+        </div>
     </div>
     <div v-else class="loading">
         <v-progress-circular
@@ -38,7 +66,38 @@
     export default {
         name: "GuideContainer",
         components: {RuneOrder, AbilityOrder, Banner},
+        data() {
+            return {
+                editable: false,
+                tmpGuide: null,
+                error: false,
+                errorText: ""
+            }
+        },
+        methods: {
+            cancel() {
+                this.$store.dispatch("setSelectedGuide", this.tmpGuide);
+                this.error = false;
+                this.editable = false;
+            },
+            save() {
+                if(this.$store.getters.guide.runeset.mainset.includes(undefined) || this.$store.getters.guide.runeset.secondset.includes(undefined))
+                {
+                    this.errorText = "Not all runes are selected. Please select all runes in order to save the guide"
+                    this.error = true;
+                } else {
+                    this.error = false;
+                    this.editable = false;
+                }
+            },
+            edit() {
+                this.tmpGuide = JSON.parse(JSON.stringify(this.$store.getters.guide));
+                this.error = false;
+                this.editable = true;
+            }
+        },
         async created() {
+            this.tmpGuide = this.$store.getters.guide;
             await APIService.loadSelectedGuide(this.$route.params.id);
             APIService.loadIndividualChampion(this.$store.getters.guide.champion)
         },
@@ -64,5 +123,23 @@
 
     .ability-rune-box {
         margin-top: 1%;
+    }
+
+    .btn-edit {
+        position: absolute;
+        right: 30px;
+        bottom: 30px;
+    }
+
+    .btn-save {
+        position: absolute;
+        right: 30px;
+        bottom: 30px;
+    }
+
+    .btn-cancel {
+        position: absolute;
+        right: 80px;
+        bottom: 30px;
     }
 </style>
