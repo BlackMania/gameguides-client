@@ -4,7 +4,6 @@
              borderWidth: '5px', borderColor: $vuetify.theme.themes[this.$root.theme].secondary, borderStyle: 'solid'}"
             class="pa-2 ability-order d-flex flex-column justify-center"
     >
-        <div v-if="!editable">
             <PassiveRow :passive-image="passive.image.full" :passive-description="passive.description"
                         :passive-name="passive.name"/>
             <AbilityRow v-for="(ability, index) in this.abilities"
@@ -14,14 +13,6 @@
                         :skill-key="getKey(index)"
                         :skill-order="self.$store.getters.guide.skills"
             />
-        </div>
-        <AbilityRow v-else v-for="(ability, index) in this.abilities"
-                    :key="index"
-                    :spell-image="ability.image.full"
-                    :spell-name="ability.name"
-                    :skill-key="getKey(index)"
-                    :skill-order="self.$store.getters.guide.skills"
-        />
     </div>
 </template>
 
