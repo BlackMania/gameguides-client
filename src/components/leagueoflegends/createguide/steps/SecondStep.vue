@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 42%">
+    <div v-if="getChampionData" style="width: 42%">
         <AbilityOrder
                 v-if="championData != null"
                 :editable="true"
@@ -13,9 +13,6 @@
     export default {
         name: "SecondStep",
         components: {AbilityOrder},
-        props: {
-            champion: String
-        },
         data() {
             return {
                 skills: [],
@@ -23,25 +20,29 @@
             }
         },
         methods: {
-            getChampionData(val) {
+
+        },
+        computed: {
+            getChampionData() {
                 let data = require("@/assets/lol/10.6.1/data/en_US/championFull.json").data;
                 for(const champ in data)
                 {
-                    if(data[champ].id === val)
+                    if(data[champ].id === this.$store.getters.guide.champion)
                     {
-                        this.championData = data[champ];
+                        return data[champ];
                     }
-                }
+                } return false;
             }
         },
         watch: {
-            champion: function(val) {
-               this.getChampionData(val);
+            getChampionData: {
+                deep: true,
+                immediate: true,
+                handler: function (newVal) {
+                    this.championData = newVal;
+                }
             }
         },
-        created() {
-            this.getChampionData(this.champion);
-        }
     }
 </script>
 
