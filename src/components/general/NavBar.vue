@@ -9,7 +9,9 @@
                 tile
                 color="secondary"
         >
-            <router-link class="app-title" :to="{name: 'game', params: { game: this.$route.params.game }}"><v-toolbar-title class="white--text">{{ appTitle }}</v-toolbar-title></router-link>
+            <router-link class="app-title" :to="{name: 'game', params: { game: this.$route.params.game }}">
+                <v-toolbar-title class="white--text">{{ appTitle }}</v-toolbar-title>
+            </router-link>
             <v-spacer></v-spacer>
             <v-toolbar-items>
                 <v-btn
@@ -33,17 +35,50 @@
                 </v-btn>
             </v-toolbar-items>
         </v-toolbar>
-        <v-dialog v-model="showLogin" width="50%">
-            <v-card>
-                <v-card-title>
+        <v-dialog v-model="showLogin" width="30%">
+            <v-card color="secondary" class="pa-2">
+                <v-card-title class="white--text justify-center">
                     Login
                 </v-card-title>
+                <v-card-actions>
+                    <v-form class="login-form" ref="loginForm">
+                        <v-text-field
+                                filled
+                                id="username"
+                                class="text-input"
+                                label="Username"
+                                color="#b4b8c0"
+                                autofocus
+                                autocomplete="off"
+                        />
+                        <v-text-field
+                                filled
+                                id="password"
+                                class="text-input"
+                                label="Password"
+                                type="password"
+                                color="#b4b8c0"
+                                autofocus
+                                autocomplete="off"
+                        />
+                        <div class="d-flex justify-center" style="width: 100%">
+                            <v-btn
+                                    class="text-capitalize"
+                                    color="primary"
+                                    @click="login"
+                            >
+                                Login
+                            </v-btn>
+                        </div>
+                    </v-form>
+                </v-card-actions>
             </v-card>
         </v-dialog>
     </v-card>
 </template>
 
 <script>
+    import apiAdapter from '../../js/APIAdapter'
     export default {
         name: "NavBar",
         data() {
@@ -56,13 +91,35 @@
                 showLogin: false
             }
         },
+        methods: {
+            login() {
+                let self = this;
+                let body = {
+                    username: document.getElementById('username').value,
+                    password: document.getElementById('password').value
+                };
+                window.console.log(body);
+                let api = new apiAdapter(body, {"Content-Type": "application/json"});
+
+                api.post("/gg/auth/login")
+                    .then(response => {
+                        if(!response.HTTP_STATUS_OK)
+                        {
+                            alert("Wrong credentials")
+                        } else {
+                            self.$session.start();
+                            self.$session.set("token", response.data);
+                        }
+                    })
+            }
+        }
     }
 </script>
 
 <style scoped>
-.v-menu__content {
-    border-radius: 0;
-}
+    .v-menu__content {
+        border-radius: 0;
+    }
 
     .text-field {
         height: 15px;
@@ -70,5 +127,18 @@
 
     .app-title {
         text-decoration: none;
+    }
+
+    >>> .v-text-field * {
+        color: #b4b8c0 !important;
+    }
+
+    >>> .text-input .mdi-menu-down::before {
+        color: #b4b8c0 !important;
+    }
+
+    .login-form {
+        width: 60%;
+        margin: auto;
     }
 </style>
