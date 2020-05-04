@@ -24,7 +24,7 @@
                         :to="item.path"
                 >{{ item.title }}
                 </v-btn>
-                <v-btn class="pl-2 pr-2 text-capitalize"
+                <v-btn v-if="!sessionExists" class="pl-2 pr-2 text-capitalize"
                        elevation="0"
                        color="secondary"
                        height="inherit"
@@ -33,6 +33,14 @@
                 >
                     Sign In
                 </v-btn>
+                <div class="d-flex align-center" v-else>
+                    <div class="white--text pa-3">
+                        {{getUnencodedUsername.sub}}
+                    </div>
+                    <v-btn elevation="0" icon @click="logout">
+                        <v-icon color="white">mdi-logout</v-icon>
+                    </v-btn>
+                </div>
             </v-toolbar-items>
         </v-toolbar>
         <v-dialog v-model="showLogin" width="30%">
@@ -67,6 +75,13 @@
                                     color="primary"
                                     @click="login"
                             >
+                                Register
+                            </v-btn>
+                            <v-btn
+                                    class="text-capitalize"
+                                    color="primary"
+                                    @click="login"
+                            >
                                 Login
                             </v-btn>
                         </div>
@@ -79,6 +94,7 @@
 
 <script>
     import apiAdapter from '../../js/APIAdapter'
+
     export default {
         name: "NavBar",
         data() {
@@ -98,19 +114,36 @@
                     username: document.getElementById('username').value,
                     password: document.getElementById('password').value
                 };
-                window.console.log(body);
-                let api = new apiAdapter(body, {"Content-Type": "application/json"});
+                let api = new apiAdapter({"Content-Type": "application/json"});
 
-                api.post("/gg/auth/login")
+                api.post("/gg/auth/login", body)
                     .then(response => {
-                        if(!response.HTTP_STATUS_OK)
-                        {
-                            alert("Wrong credentials")
-                        } else {
+                        if (response.data !== "Invalid login attempt") {
                             self.$session.start();
                             self.$session.set("token", response.data);
+                            self.showLogin = false;
+                        } else {
+                            alert("Wrong credentials")
                         }
-                    })
+                    });
+            },
+            logout() {
+                this.$session.destroy();
+            }
+        },
+        computed: {
+            getUnencodedUsername() {
+                let token = this.$session.get('token');
+                let payload = token.split('.')[1];
+                let unencoded = atob(payload);
+                console.log(token);
+                return JSON.parse(unencoded);
+            },
+            sessionExists() {
+                if (this.$session.exists()) {
+                    return this.$session.get('token') != null;
+                }
+                return false;
             }
         }
     }
