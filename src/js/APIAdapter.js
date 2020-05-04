@@ -1,9 +1,8 @@
 const axios = require('axios');
 
-module.exports = (body, customHeader) => {
+module.exports = (customHeader) => {
     return axios.create({
         baseURL: 'http://localhost:3000',
         headers: customHeader || {},
-        body: body
     });
 };
