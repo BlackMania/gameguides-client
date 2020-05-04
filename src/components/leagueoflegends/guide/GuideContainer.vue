@@ -19,31 +19,33 @@
                     style="min-width: 41%; margin-right: 1%;"/>
             <RuneOrder :editable="editable" :width="100" class="flex-fill"/>
         </div>
-        <v-tooltip top v-if="!editable" >
-            <template v-slot:activator="{ on }">
-                <v-btn @click="edit" v-on="on" class="btn-edit" color="primary" fab small>
-                    <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-            </template>
-            <span>Edit</span>
-        </v-tooltip>
-        <div v-else>
-            <v-tooltip top>
+        <div v-if="checkPermission">
+            <v-tooltip top v-if="!editable">
                 <template v-slot:activator="{ on }">
-                    <v-btn @click="save" v-on="on" class="btn-save" color="primary" fab small>
-                        <v-icon>mdi-check</v-icon>
+                    <v-btn @click="edit" v-on="on" class="btn-edit" color="primary" fab small>
+                        <v-icon>mdi-pencil</v-icon>
                     </v-btn>
                 </template>
-                <span>Save</span>
+                <span>Edit</span>
             </v-tooltip>
-            <v-tooltip top>
-                <template v-slot:activator="{ on }">
-                    <v-btn @click="cancel" v-on="on" class="btn-cancel" color="grey darken-3" fab small>
-                        <v-icon color="white">mdi-close</v-icon>
-                    </v-btn>
-                </template>
-                <span>Cancel</span>
-            </v-tooltip>
+            <div v-else>
+                <v-tooltip top>
+                    <template v-slot:activator="{ on }">
+                        <v-btn @click="save" v-on="on" class="btn-save" color="primary" fab small>
+                            <v-icon>mdi-check</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Save</span>
+                </v-tooltip>
+                <v-tooltip top>
+                    <template v-slot:activator="{ on }">
+                        <v-btn @click="cancel" v-on="on" class="btn-cancel" color="grey darken-3" fab small>
+                            <v-icon color="white">mdi-close</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Cancel</span>
+                </v-tooltip>
+            </div>
         </div>
     </div>
     <div v-else class="loading">
@@ -81,8 +83,7 @@
                 this.editable = false;
             },
             save() {
-                if(this.$store.getters.guide.runeset.mainset.includes(undefined) || this.$store.getters.guide.runeset.secondset.includes(undefined))
-                {
+                if (this.$store.getters.guide.runeset.mainset.includes(undefined) || this.$store.getters.guide.runeset.secondset.includes(undefined)) {
                     this.errorText = "Not all runes are selected. Please select all runes in order to save the guide"
                     this.error = true;
                 } else {
@@ -94,7 +95,7 @@
                 this.tmpGuide = JSON.parse(JSON.stringify(this.$store.getters.guide));
                 this.error = false;
                 this.editable = true;
-            }
+            },
         },
         async created() {
             this.tmpGuide = this.$store.getters.guide;
@@ -104,11 +105,20 @@
         beforeDestroy() {
             this.$store.dispatch('resetIndividualChampion');
         },
-        computed: mapState({
-            individualChampionData: function (state) {
-                return state.lol.individualChampionData;
-            }
-        }),
+        computed: {
+            checkPermission() {
+                let token = this.$session.get('token');
+                if (token === "" || token === null || token === undefined) return false;
+                let payload = token.split('.')[1];
+                let unencoded = JSON.parse(atob(payload));
+                return unencoded.guides.includes(this.$route.params.id);
+            },
+            ...mapState({
+                individualChampionData: function (state) {
+                    return state.lol.individualChampionData;
+                }
+            }),
+        }
     }
 </script>
 
