@@ -6,7 +6,7 @@
             <VImg width="100px" :src="loadImage"></VImg>
         </div>
         <div v-else class=" ma-1 d-flex flex-row align-center">
-            <div @click.right="removeRune" :style="{border: '2px solid ' + getColor, borderRadius: '50px'}"
+            <div id="test" @click.right="removeRune" :style="{border: '2px solid ' + getColor, borderRadius: '50px'}"
                  class="empty-rune-box ">
                 <VImg v-if="title" width="100px" :src="loadImage"></VImg>
             </div>
@@ -76,7 +76,7 @@
                 <VImg v-if="title" width="100px" :src="loadImage"></VImg>
             </div>
             <div class="flex-fill pl-3" :style="{  color: getColor }">
-                <div>{{ title.replace(/([A-Z])/g, ' $1').trim().toUpperCase() }}</div>
+                <div v-if="title">{{ title.replace(/([A-Z])/g, ' $1').trim().toUpperCase() }}</div>
                 <div v-if="getDescription !== ''" class="rune-description">{{ sanitize(getDescription)}}</div>
             </div>
         </div>
@@ -91,7 +91,7 @@
             topRune: Boolean,
             parentRune: String,
             title: String,
-            mainPath: Boolean
+            mainPath: Boolean,
         },
         data() {
             return {
