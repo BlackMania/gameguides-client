@@ -20,14 +20,24 @@
             <RuneOrder :editable="editable" :width="100" class="flex-fill"/>
         </div>
         <div v-if="checkPermission">
-            <v-tooltip top v-if="!editable">
-                <template v-slot:activator="{ on }">
-                    <v-btn @click="edit" v-on="on" class="btn-edit" color="primary" fab small>
-                        <v-icon>mdi-pencil</v-icon>
-                    </v-btn>
-                </template>
-                <span>Edit</span>
-            </v-tooltip>
+            <div v-if="!editable">
+                <v-tooltip top>
+                    <template v-slot:activator="{ on }">
+                        <v-btn @click="edit" v-on="on" class="btn-edit" color="primary" fab small>
+                            <v-icon>mdi-pencil</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Edit</span>
+                </v-tooltip>
+                <v-tooltip top>
+                    <template v-slot:activator="{ on }">
+                        <v-btn @click="remove" v-on="on" class="btn-delete" color="primary" fab small>
+                            <v-icon>mdi-delete</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Delete</span>
+                </v-tooltip>
+            </div>
             <div v-else>
                 <v-tooltip top>
                     <template v-slot:activator="{ on }">
@@ -64,6 +74,7 @@
     import Banner from "@/components/leagueoflegends/guide/Banner";
     import AbilityOrder from "./abilitybox/AbilityOrder";
     import RuneOrder from "./runebox/RuneOrder";
+    import apiAdapter from "../../../js/APIAdapter"
 
     export default {
         name: "GuideContainer",
@@ -89,7 +100,19 @@
                 } else {
                     this.error = false;
                     this.editable = false;
+                    let api = new apiAdapter({"Authorization": "Bearer " + this.$session.get("token")});
+                    api.put("/gg/lol/guides/update/" + this.$route.params.id, this.$store.getters.guide)
+                        .then(response => {
+                            alert(response.data);
+                        })
                 }
+            },
+            remove() {
+                let api = new apiAdapter({"Authorization": "Bearer " + this.$session.get("token")});
+                api.delete("/gg/lol/guides/delete/" + this.$route.params.id)
+                    .then(response => {
+                        alert(response.data);
+                    })
             },
             edit() {
                 this.tmpGuide = JSON.parse(JSON.stringify(this.$store.getters.guide));
@@ -148,6 +171,13 @@
     }
 
     .btn-cancel {
+        position: absolute;
+        right: 80px;
+        bottom: 30px;
+    }
+
+    .btn-delete {
+
         position: absolute;
         right: 80px;
         bottom: 30px;
