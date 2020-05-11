@@ -66,8 +66,8 @@ const routes = [
                                 },
                                 views: 0,
                                 upvotes: 0,
-                                created: "",
-                                updates: "",
+                                created: new Date(),
+                                updates: new Date(),
                             };
                             store.dispatch('setSelectedGuide', newGuideObject);
                             next();
