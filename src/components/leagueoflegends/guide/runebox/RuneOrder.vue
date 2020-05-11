@@ -1,7 +1,7 @@
 <template>
     <div
-            :style="{ backgroundColor: $vuetify.theme.themes[this.$root.theme].tertiary,
-             borderWidth: '5px', borderColor: $vuetify.theme.themes[this.$root.theme].secondary, borderStyle: 'solid'}"
+            :style="{ backgroundColor: '#0f131c',
+             borderWidth: '5px', borderColor: '#2a2e37', borderStyle: 'solid'}"
             class="pa-2">
         <div v-if="editable" class="d-flex flex-row justify-center">
             <Rune v-for="(rune, index) in runeJson"
