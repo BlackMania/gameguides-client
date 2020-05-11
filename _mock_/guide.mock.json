@@ -1,0 +1,55 @@
+{
+  "uuid": "b2f3ef94-6787-11ea-8201-b06ebf5fef3b",
+  "patchversion": "10.6.1",
+  "skills": [
+    "1Q",
+    "2Q",
+    "3Q",
+    "4Q",
+    "5Q",
+    "6E",
+    "7E",
+    "8E",
+    "9E",
+    "10E",
+    "11W",
+    "12W",
+    "13W",
+    "14W",
+    "15W",
+    "16R",
+    "17R",
+    "18R"
+  ],
+  "runeset": {
+    "mainset": [
+      "Domination",
+      "Electrocute",
+      "CheapShot",
+      "ZombieWard",
+      "RavenousHunter"
+    ],
+    "statmods": [
+      "StatModsAdaptiveForce",
+      "StatModsAttackSpeed",
+      "StatModsAttackSpeed"
+    ],
+    "secondset": [
+      "Sorcery",
+      "NullifyingOrb",
+      "Transcendence"
+    ]
+  },
+  "title": "[Zed] Best guide\r\n",
+  "content": "Guide is very nice",
+  "champion": "Zed",
+  "lane": "Mid",
+  "madeby": {
+    "uuid": "c9e5eb17-2567-4ba9-92f5-559038f4a085",
+    "username": "Vincent"
+  },
+  "views": 0,
+  "upvotes": 0,
+  "created": "2020-03-02T04:14:22.000+0000",
+  "updates": "2020-03-02T04:14:22.000+0000"
+}
