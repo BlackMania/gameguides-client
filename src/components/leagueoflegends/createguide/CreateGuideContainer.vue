@@ -99,6 +99,7 @@
     import FirstStep from "./steps/FirstStep";
     import SecondStep from "./steps/SecondStep";
     import ThirdStep from "./steps/ThirdStep";
+    import apiAdapter from "../../../js/APIAdapter"
 
     export default {
         name: "CreateGuideContainer",
@@ -111,7 +112,11 @@
         },
         methods: {
             save() {
-                alert(JSON.stringify(this.$store.getters.guide))
+                let api = new apiAdapter({"Authorization": "Bearer " + this.$session.get("token")});
+                api.post("/gg/lol/guides/add", this.$store.getters.guide)
+                    .then(response => {
+                        alert(response.data);
+                    });
             }
         }
     }
