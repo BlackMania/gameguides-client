@@ -1,12 +1,15 @@
 <template>
     <div v-if="this.$parent.editable">
         <div v-if="topRune" class="ma-1"
+             id="top-rune"
              @click.left="addRune"
+             @click.right="removeRune"
              :style="{ border: '2px solid ' + getColor, borderRadius: '50px' }">
             <VImg width="100px" :src="loadImage"></VImg>
         </div>
         <div v-else class=" ma-1 d-flex flex-row align-center">
-            <div id="test" @click.right="removeRune" :style="{border: '2px solid ' + getColor, borderRadius: '50px'}"
+            <div id="empty-rune-box" @click.right="removeRune"
+                 :style="{border: '2px solid ' + getColor, borderRadius: '50px'}"
                  class="empty-rune-box ">
                 <VImg v-if="title" width="100px" :src="loadImage"></VImg>
             </div>
@@ -22,7 +25,7 @@
                     <div v-for="rune in subRune.slots[index - 1].runes"
                          :key="rune.id"
                     >
-                        <div @click.left="addSubRune(rune.key)" class="ma-1"
+                        <div class="empty-box ma-1" @click.left="addSubRune(rune.key)"
                              :style="{border: '2px solid ' + getColor, borderRadius: '50px'}">
                             <VImg width="70px" :src="loadSubRuneImage(rune.key)"/>
                         </div>
@@ -113,8 +116,7 @@
                 this.$store.dispatch("removeRune", {ind: this.index, title: this.title});
                 if (!this.mainPath) {
                     loop: for (let i = 1; i < this.$store.getters.guide.runeset.secondset.length; i++) {
-                        if(this.$store.getters.guide.runeset.secondset[i] === undefined)
-                        {
+                        if (this.$store.getters.guide.runeset.secondset[i] === undefined) {
                             this.$parent.disabledSecondset = undefined;
                         } else {
                             let obj = this.$parent.runeJson.filter(slot => slot.name === this.parentRune)[0].slots.slice(1);
