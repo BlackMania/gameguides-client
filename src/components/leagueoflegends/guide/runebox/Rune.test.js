@@ -32,9 +32,26 @@ describe('RuneOrder in editable state', () => {
     it('renders correctly', () => {
         expect(wrapper.findAllComponents(Rune).length).toBe(13);
     });
-    it('can be clicked at Rune and change layout',  async () => {
-        wrapper.findAllComponents(Rune).at(6).find('#test').trigger("contextmenu");
+    it('shows sub-runes when clicked at',  async () => {
+        wrapper.findAllComponents(Rune).at(6).find('#empty-rune-box').trigger("contextmenu");
         await wrapper.vm.$nextTick();
         expect(wrapper.findAllComponents(Rune).at(6).findAll(".v-image").length).toBe(4);
-    })
+    });
+    it('when clicked at image to select sub-rune, sub-rune title is not empty', async () => {
+        wrapper.findAllComponents(Rune).at(6).findAll(".empty-box").at(0).trigger("click");
+        await wrapper.vm.$nextTick();
+        expect(wrapper.findAllComponents(Rune).at(6).findAll(".v-image").length).toBe(1);
+    });
+    it('when clicked at image to select sub-rune, sub-rune title is not empty', async () => {
+        let runes = wrapper.findAllComponents(Rune);
+        for(let i = 0; i < runes.length; i++) {
+            if(wrapper.findAllComponents(Rune).at(i).props("title") === "Domination")
+            {
+                wrapper.findAllComponents(Rune).at(i).find("#top-rune").trigger("contextmenu");
+                await wrapper.vm.$nextTick();
+                break;
+            }
+        }
+        expect(wrapper.findAllComponents(Rune).at(6).vm.getColor).toBe("grey");
+    });
 })
