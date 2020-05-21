@@ -166,11 +166,14 @@
                 return "grey";
             },
             getDescription() {
-                let obj = this.$parent.runeJson.filter(slot => slot.name === this.parentRune)[0].slots;
-                for (let i = 0; i < obj.length; i++) {
-                    for (let j = 0; j < obj[i].runes.length; j++) {
-                        if (obj[i].runes[j].key === this.title) {
-                            return obj[i].runes[j].shortDesc;
+                if(this.$parent.runeJson.filter(slot => slot.name === this.parentRune)[0] !== undefined)
+                {
+                    let obj = this.$parent.runeJson.filter(slot => slot.name === this.parentRune)[0].slots;
+                    for (let i = 0; i < obj.length; i++) {
+                        for (let j = 0; j < obj[i].runes.length; j++) {
+                            if (obj[i].runes[j].key === this.title) {
+                                return obj[i].runes[j].shortDesc;
+                            }
                         }
                     }
                 }
