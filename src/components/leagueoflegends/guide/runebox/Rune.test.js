@@ -42,7 +42,7 @@ describe('RuneOrder in editable state', () => {
         await wrapper.vm.$nextTick();
         expect(wrapper.findAllComponents(Rune).at(6).findAll(".v-image").length).toBe(1);
     });
-    it('when clicked at image to select sub-rune, sub-rune title is not empty', async () => {
+    it('color should be grey when rune is empty', async () => {
         let runes = wrapper.findAllComponents(Rune);
         for(let i = 0; i < runes.length; i++) {
             if(wrapper.findAllComponents(Rune).at(i).props("title") === "Domination")
@@ -54,4 +54,38 @@ describe('RuneOrder in editable state', () => {
         }
         expect(wrapper.findAllComponents(Rune).at(6).vm.getColor).toBe("grey");
     });
+    it('cannot have twice the same main rune', async () => {
+        let runes = wrapper.findAllComponents(Rune);
+        for(let i = 0; i < runes.length; i++) {
+            if(wrapper.findAllComponents(Rune).at(i).props("title") === "Sorcery")
+            {
+                wrapper.findAllComponents(Rune).at(i).find("#top-rune").trigger("contextmenu");
+                await wrapper.vm.$nextTick();
+                wrapper.findAllComponents(Rune).at(i).find("#top-rune").trigger("click");
+                await wrapper.vm.$nextTick();
+                wrapper.findAllComponents(Rune).at(i).find("#top-rune").trigger("click");
+                await wrapper.vm.$nextTick();
+                break;
+            }
+        }
+        expect(wrapper.findAllComponents(Rune).at(6).vm.getColor).toBe("#745ad9");
+        expect(wrapper.findAllComponents(Rune).at(12).vm.getColor).toBe("grey");
+    });
+    it('cannot pick twice the same sub rune from second rune', async () => {
+        let runes = wrapper.findAllComponents(Rune);
+        for(let i = 0; i < runes.length; i++) {
+            if(wrapper.findAllComponents(Rune).at(i).props("title") === "Inspiration")
+            {
+                wrapper.findAllComponents(Rune).at(i).find("#top-rune").trigger("click");
+                await wrapper.vm.$nextTick();
+                break;
+            }
+        }
+        wrapper.findAllComponents(Rune).at(11).findAll(".v-image").at(0).trigger("click");
+        await wrapper.vm.$nextTick();
+        wrapper.findAllComponents(Rune).at(12).findAll(".v-image").at(0).trigger("click");
+        await wrapper.vm.$nextTick();
+
+        expect(wrapper.findAllComponents(Rune).at(12).findAll(".v-image").length).toBe(9);
+    })
 })
